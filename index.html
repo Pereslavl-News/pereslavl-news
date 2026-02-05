@@ -99,39 +99,69 @@
 </div>
 
 <script>
-    // Переключатель темы
-    const btn = document.getElementById('theme-toggle');
-    btn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-    });
+    // 1. ТЕМНАЯ ТЕМА
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+    }
 
-    // Загрузка новостей из 76.ru
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-theme');
+    }
+
+    // 2. ЗАГРУЗКА НОВОСТЕЙ (ИСПРАВЛЕННЫЙ МЕТОД)
     async function loadNews() {
+        const grid = document.getElementById('news-grid');
+        // Используем другой прокси-сервер, который работает с GitHub Pages
         const RSS_URL = 'https://76.ru/text/rss.xml';
-        const API = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+        const FETCH_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
         
         try {
-            const res = await fetch(API);
-            const data = await res.json();
-            const grid = document.getElementById('news-grid');
+            const response = await fetch(FETCH_URL);
+            const data = await response.json();
+            
+            // Парсим XML вручную, так как AllOrigins возвращает сырые данные
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+            const items = xmlDoc.querySelectorAll("item");
+
             grid.innerHTML = '';
 
-            data.items.slice(0, 6).forEach(item => {
+            items.forEach((item, index) => {
+                if (index > 15) return; // Ограничим количество новостей
+
+                const title = item.querySelector("title").textContent;
+                const link = item.querySelector("link").textContent;
+                const description = item.querySelector("description").textContent
+                    .replace(/<[^>]*>?/gm, '') // Очистка от HTML-тегов
+                    .substring(0, 110);
+
+                const isPereslavl = title.toLowerCase().includes('переславль') || 
+                                    description.toLowerCase().includes('переславль');
+                
                 const card = document.createElement('a');
-                card.href = item.link;
+                card.href = link;
                 card.target = '_blank';
                 card.className = 'card';
+                
+                const tagText = isPereslavl ? "ВАЖНО: ПЕРЕСЛАВЛЬ" : "Ярославская область";
+
                 card.innerHTML = `
-                    <div class="card-title">${item.title}</div>
-                    <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700;">Читать в источнике →</div>
+                    <span class="card-tag" style="${isPereslavl ? 'color: #e63946;' : ''}">${tagText}</span>
+                    <h2 class="card-title">${title}</h2>
+                    <p class="card-desc">${description}...</p>
+                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--primary);">Подробнее →</div>
                 `;
                 grid.appendChild(card);
             });
-        } catch (e) { console.error("Ошибка загрузки новостей"); }
+        } catch (error) {
+            console.error(error);
+            grid.innerHTML = '<div class="loader">Не удалось загрузить новости. Пожалуйста, обновите страницу позже.</div>';
+        }
     }
 
     loadNews();
 </script>
-
-</body>
-</html>
