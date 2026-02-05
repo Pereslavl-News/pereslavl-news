@@ -3,66 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Типичный Переславль — Новости и ТГ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-    
+    <title>Типичный Переславль — Новости города</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #0f172a;
-            --border: #e2e8f0;
+            --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --primary: #2563eb; --border: #e2e8f0;
         }
-
         .dark-theme {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f1f5f9;
-            --border: #334155;
+            --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --border: #334155;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; transition: 0.3s; }
-        body { font-family: 'Manrope', sans-serif; background-color: var(--bg); color: var(--text); }
-
-        header {
-            background: var(--card);
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; z-index: 1000;
-        }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); }
+        
+        header { background: var(--card); padding: 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 900px; margin: 0 auto; }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--text); }
+        .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); }
         .logo span { color: var(--primary); }
 
-        .section-title { margin: 30px 0 20px; font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-
-        /* СЕТКА НОВОСТЕЙ ИЗ СМИ */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .card {
-            background: var(--card); border-radius: 16px; padding: 20px;
-            text-decoration: none; color: inherit; border: 1px solid var(--border);
-            transition: transform 0.3s;
+        .tg-banner {
+            background: linear-gradient(135deg, #24a1de 0%, #0088cc 100%);
+            color: white; padding: 20px; border-radius: 20px; margin: 20px 0;
+            text-align: center; text-decoration: none; display: block;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .tg-banner:hover { transform: scale(1.02); }
 
-        /* БЛОК TELEGRAM */
-        .tg-container {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 10px;
-            border: 1px solid var(--border);
-            margin-bottom: 40px;
-            overflow: hidden;
-            min-height: 400px;
+        .grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 40px; }
+        .card { 
+            background: var(--card); padding: 20px; border-radius: 20px; 
+            border: 1px solid var(--border); text-decoration: none; color: inherit;
         }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card-tag { font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+        .card-title { font-size: 1.2rem; margin: 10px 0; font-weight: 700; }
 
-        .theme-btn { cursor: pointer; background: none; border: 1px solid var(--border); padding: 5px 10px; border-radius: 8px; color: var(--text); }
-
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+        .theme-btn { background: none; border: 1px solid var(--border); padding: 5px 10px; border-radius: 8px; color: var(--text); cursor: pointer; }
     </style>
 </head>
 <body>
@@ -71,97 +46,61 @@
     <div class="container">
         <div class="header-content">
             <a href="#" class="logo">Типичный <span>Переславль</span></a>
-            <button class="theme-btn" id="theme-toggle">🌓 Тема</button>
+            <button class="theme-btn" onclick="document.body.classList.toggle('dark-theme')">🌓 Тема</button>
         </div>
     </div>
 </header>
 
-<div class="container">
-    
-    <h2 class="section-title">📱 Мы в Telegram</h2>
-    <div class="tg-container">
-        <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                data-telegram-discussion="TPereslavl" 
-                data-comments-limit="5" 
-                data-color="2563eb" 
-                data-dark="1"></script>
-        
-        <iframe src="https://tg.i-c-a.su/media/TPereslavl/10" 
-                width="100%" height="500" frameborder="0" 
-                style="border-radius: 15px;"></iframe>
-    </div>
+<div class="container" style="padding: 0 15px;">
+    <a href="https://t.me/TPereslavl" target="_blank" class="tg-banner">
+        <h3>📢 Читать Типичный Переславль в Telegram</h3>
+        <p>Самые свежие новости и обсуждения города здесь!</p>
+    </a>
 
-    <h2 class="section-title">📰 Новости области</h2>
+    <h2 style="margin: 20px 0;">📰 Новости региона (76.ru)</h2>
     <div id="news-grid" class="grid">
-        <div style="padding: 20px;">Загрузка новостей...</div>
+        <p style="text-align: center; padding: 20px;">Загрузка свежих новостей...</p>
     </div>
-
 </div>
 
 <script>
-    // 1. ТЕМНАЯ ТЕМА
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
-        });
-    }
-
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-theme');
-    }
-
-    // 2. ЗАГРУЗКА НОВОСТЕЙ (ИСПРАВЛЕННЫЙ МЕТОД)
     async function loadNews() {
         const grid = document.getElementById('news-grid');
-        // Используем другой прокси-сервер, который работает с GitHub Pages
+        // Используем максимально надежный прокси
         const RSS_URL = 'https://76.ru/text/rss.xml';
-        const FETCH_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
-        
+        const API_URL = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
+
         try {
-            const response = await fetch(FETCH_URL);
+            const response = await fetch(API_URL);
             const data = await response.json();
-            
-            // Парсим XML вручную, так как AllOrigins возвращает сырые данные
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(data.contents, "text/xml");
             const items = xmlDoc.querySelectorAll("item");
 
             grid.innerHTML = '';
-
             items.forEach((item, index) => {
-                if (index > 15) return; // Ограничим количество новостей
-
+                if (index > 10) return;
                 const title = item.querySelector("title").textContent;
                 const link = item.querySelector("link").textContent;
-                const description = item.querySelector("description").textContent
-                    .replace(/<[^>]*>?/gm, '') // Очистка от HTML-тегов
-                    .substring(0, 110);
+                const desc = item.querySelector("description").textContent.replace(/<[^>]*>?/gm, '').substring(0, 100);
 
-                const isPereslavl = title.toLowerCase().includes('переславль') || 
-                                    description.toLowerCase().includes('переславль');
-                
                 const card = document.createElement('a');
                 card.href = link;
                 card.target = '_blank';
                 card.className = 'card';
-                
-                const tagText = isPereslavl ? "ВАЖНО: ПЕРЕСЛАВЛЬ" : "Ярославская область";
-
                 card.innerHTML = `
-                    <span class="card-tag" style="${isPereslavl ? 'color: #e63946;' : ''}">${tagText}</span>
+                    <span class="card-tag">Ярославская область</span>
                     <h2 class="card-title">${title}</h2>
-                    <p class="card-desc">${description}...</p>
-                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--primary);">Подробнее →</div>
+                    <p style="opacity: 0.7; font-size: 0.9rem;">${desc}...</p>
                 `;
                 grid.appendChild(card);
             });
-        } catch (error) {
-            console.error(error);
-            grid.innerHTML = '<div class="loader">Не удалось загрузить новости. Пожалуйста, обновите страницу позже.</div>';
+        } catch (e) {
+            grid.innerHTML = '<p>Не удалось загрузить ленту новостей. Пожалуйста, зайдите позже.</p>';
         }
     }
-
     loadNews();
 </script>
+
+</body>
+</html>
