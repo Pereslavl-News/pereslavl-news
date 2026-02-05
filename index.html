@@ -3,45 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Типичный Переславль | Официальный сайт</title>
+    <title>Типичный Переславль</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #0088cc; --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21;
-        }
-        .dark-theme {
-            --bg: #18191a; --card: #242526; --text: #e4e6eb;
-        }
+        :root { --primary: #0088cc; --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21; }
+        .dark-theme { --bg: #18191a; --card: #242526; --text: #e4e6eb; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
-        
         header { 
             background: var(--card); padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 100;
         }
-
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-
-        /* Стиль для ленты Telegram */
-        .tg-channel-wrap {
+        .feed-container {
             background: var(--card); border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px;
+            min-height: 800px;
         }
-        .channel-header {
-            padding: 15px; background: var(--primary); color: white;
-            display: flex; align-items: center; gap: 10px; font-weight: 700;
-        }
-
         .btn-tg {
             display: block; background: var(--primary); color: white;
-            text-align: center; padding: 15px; border-radius: 15px;
-            text-decoration: none; font-weight: 800; margin-top: 20px;
+            text-align: center; padding: 18px; border-radius: 15px;
+            text-decoration: none; font-weight: 800; font-size: 1.1rem;
         }
-
-        .section-title { margin-bottom: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
@@ -54,28 +39,16 @@
 </header>
 
 <div class="container">
-    
-    <div class="section-title"><i data-lucide="message-square"></i> Последние новости из Telegram</div>
-    
-    <div class="tg-channel-wrap">
-        <div class="channel-header">@TPereslavl</div>
+    <div class="feed-container">
         <script async src="https://telegram.org/js/telegram-widget.js?22" 
                 data-telegram-discussion="TPereslavl" 
-                data-comments-limit="5" 
-                data-color="0088cc" 
-                data-dark="0"></script>
-        
-        <div style="padding: 10px;">
-             <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                     data-telegram-post="TPereslavl/100" 
-                     data-width="100%"></script>
-        </div>
+                data-comments-limit="45" 
+                data-color="0088cc"></script>
     </div>
 
     <a href="https://t.me/TPereslavl" target="_blank" class="btn-tg">
-        ПОДПИСАТЬСЯ В TELEGRAM
+        ОТКРЫТЬ КАНАЛ В TELEGRAM
     </a>
-
 </div>
 
 <script>
