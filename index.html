@@ -8,47 +8,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #0088cc; --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21; }
-        .dark-theme { --bg: #18191a; --card: #242526; --text: #e4e6eb; }
+        .dark-theme { --bg: #0a0a0a; --card: #1c1c1c; --text: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
         header { 
-            background: var(--card); padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);
+            background: var(--card); padding: 15px 20px; border-bottom: 2px solid var(--primary);
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; z-index: 100;
         }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .feed-container {
-            background: var(--card); border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px;
-            min-height: 800px;
-        }
+        .container { max-width: 600px; margin: 0 auto; padding: 15px; }
+        .tg-post-box { margin-bottom: 15px; border-radius: 15px; overflow: hidden; background: var(--card); }
         .btn-tg {
             display: block; background: var(--primary); color: white;
-            text-align: center; padding: 18px; border-radius: 15px;
-            text-decoration: none; font-weight: 800; font-size: 1.1rem;
+            text-align: center; padding: 20px; border-radius: 20px;
+            text-decoration: none; font-weight: 800; margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,136,204,0.3);
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="font-size: 1.4rem; font-weight: 800;">Типичный <span style="color:var(--primary)">Переславль</span></div>
-    <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; cursor:pointer; color:var(--text)">
+    <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">ТИПИЧНЫЙ ПЕРЕСЛАВЛЬ</div>
+    <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; cursor:pointer; color:var(--primary)">
         <i data-lucide="moon"></i>
     </button>
 </header>
 
 <div class="container">
-    <div class="feed-container">
-        <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                data-telegram-discussion="TPereslavl" 
-                data-comments-limit="45" 
-                data-color="0088cc"></script>
+    <div class="tg-post-box">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/223" data-width="100%"></script>
+    </div>
+    <div class="tg-post-box">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/222" data-width="100%"></script>
+    </div>
+    <div class="tg-post-box">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/221" data-width="100%"></script>
+    </div>
+    <div class="tg-post-box">
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/220" data-width="100%"></script>
     </div>
 
-    <a href="https://t.me/TPereslavl" target="_blank" class="btn-tg">
-        ОТКРЫТЬ КАНАЛ В TELEGRAM
-    </a>
+    <a href="https://t.me/TPereslavl" target="_blank" class="btn-tg">ЧИТАТЬ В TELEGRAM</a>
 </div>
 
 <script>
