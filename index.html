@@ -3,145 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Типичный Переславль | Монитор города</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Типичный Переславль | Городской Портал</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
         :root {
-            --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21;
-            --tg-color: #24a1de; --primary: #007bff; --border: #dddfe2;
+            --brand: #008080; /* Transformative Teal */
+            --accent: #ff6b6b; /* Coral */
+            --bg: #f4f7f6;
+            --card: rgba(255, 255, 255, 0.9);
+            --text: #1a202c;
+            --glass: rgba(255, 255, 255, 0.7);
         }
+
         .dark-theme {
-            --bg: #18191a; --card: #242526; --text: #e4e6eb;
-            --tg-color: #35a6e0; --primary: #2d88ff; --border: #3e4042;
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.9);
+            --text: #f1f5f9;
+            --glass: rgba(15, 23, 42, 0.8);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
-
-        header {
-            background: var(--card); padding: 15px 0; border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; z-index: 1000;
-        }
-        .container { max-width: 800px; margin: 0 auto; padding: 0 15px; }
-        .header-content { display: flex; justify-content: space-between; align-items: center; }
         
-        .section-title { margin: 30px 0 15px; font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .badge-tg { background: var(--tg-color); color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; }
-
-        /* СТИЛЬ ПОСТА ТЕЛЕГРАМ */
-        .tg-post {
-            background: var(--card); border-radius: 18px; padding: 20px;
-            margin-bottom: 20px; border: 1px solid var(--border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
+            color: var(--text);
+            transition: 0.4s;
+            background-image: radial-gradient(circle at top right, var(--brand), transparent 400px);
+            min-height: 100vh;
         }
-        .tg-post-text { font-size: 1rem; line-height: 1.5; white-space: pre-wrap; margin-bottom: 15px; }
-        .tg-post-date { font-size: 0.8rem; color: var(--tg-color); font-weight: 700; text-decoration: none; }
 
-        /* СМИ КАРТОЧКА */
+        /* ШАПКА */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 0;
+        }
+
+        .container { max-width: 850px; margin: 0 auto; padding: 0 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo i { color: var(--brand); }
+
+        /* ГЛАВНЫЙ БЛОК TELEGRAM */
+        .tg-section {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: var(--brand); }
+
+        /* КАРТОЧКИ НОВОСТЕЙ */
+        .news-grid { display: grid; gap: 15px; }
         .news-card {
-            background: var(--card); border-radius: 12px; padding: 15px;
-            margin-bottom: 12px; border: 1px solid var(--border);
-            display: block; text-decoration: none; color: inherit; font-size: 0.95rem;
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid transparent;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .news-card:hover {
+            border-color: var(--brand);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        .loader { text-align: center; padding: 40px; opacity: 0.5; }
-        .btn-theme { cursor: pointer; background: none; border: 1px solid var(--border); padding: 8px 15px; border-radius: 10px; color: var(--text); font-weight: 600; }
+        /* КНОПКИ */
+        .btn-round {
+            background: var(--brand);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center; gap: 8px;
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: var(--glass);
+            border: 1px solid var(--brand);
+            padding: 10px;
+            border-radius: 50%;
+            color: var(--brand);
+            cursor: pointer;
+        }
+
+        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="container">
-        <div class="header-content">
-            <h1 style="font-size: 1.3rem; font-weight: 800;">Типичный <span style="color:var(--tg-color)">Переславль</span></h1>
-            <button class="btn-theme" onclick="document.body.classList.toggle('dark-theme')">🌓 Тема</button>
+        <div class="nav">
+            <a href="#" class="logo">
+                <i data-lucide="map-pin"></i> Типичный <span>Переславль</span>
+            </a>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button class="theme-toggle" onclick="toggleTheme()"><i data-lucide="moon"></i></button>
+                <a href="https://t.me/TPereslavl" target="_blank" class="btn-round">
+                    <i data-lucide="send"></i> Канал
+                </a>
+            </div>
         </div>
     </div>
 </header>
 
 <div class="container">
     
-    <h2 class="section-title">📱 Лента Telegram <span class="badge-tg">LIVE</span></h2>
-    <div id="tg-feed">
-        <div class="loader">Считываем последние сообщения из @TPereslavl...</div>
+    <div class="tg-section">
+        <div class="section-header">
+            <i data-lucide="message-circle"></i>
+            <h2>Последнее в Telegram</h2>
+        </div>
+        <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                data-telegram-post="TPereslavl/200" 
+                data-width="100%" 
+                data-userpic="true" 
+                data-color="008080"></script>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px;">Нажмите кнопку ниже, чтобы увидеть все обсуждения</p>
+            <a href="https://t.me/TPereslavl" target="_blank" class="btn-round" style="background: var(--accent);">
+                Открыть ленту полностью
+            </a>
+        </div>
     </div>
 
-    <h2 class="section-title">📰 Официальные СМИ</h2>
-    <div id="media-feed">
-        <div class="loader">Загрузка новостей 76.ru...</div>
+    <div class="section-header">
+        <i data-lucide="newspaper"></i>
+        <h2>Сводка новостей региона</h2>
+    </div>
+
+    <div id="news-grid" class="news-grid">
+        <p style="padding: 20px; text-align: center;">Загрузка свежей прессы...</p>
     </div>
 
 </div>
 
+<footer>
+    <p>© 2026 Проект Станислава | Переславль-Залесский</p>
+</footer>
+
 <script>
-    // ФУНКЦИЯ ЗАГРУЗКИ ИЗ ТЕЛЕГРАМ (через RSS мост)
-    async function loadTelegram() {
-        const feedContainer = document.getElementById('tg-feed');
-        // Используем публичный RSS-мост для Telegram
-        const tgChannel = 'TPereslavl';
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent('https://rsshub.app/telegram/channel/' + tgChannel)}`;
+    // Инициализация иконок
+    lucide.createIcons();
 
-        try {
-            const response = await fetch(proxyUrl);
-            const data = await response.json();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data.contents, "text/xml");
-            const items = xml.querySelectorAll("item");
-
-            feedContainer.innerHTML = '';
-            items.forEach((item, index) => {
-                if (index > 5) return; // Только последние 5 постов
-                
-                const content = item.querySelector("description").textContent.replace(/<[^>]*>?/gm, '');
-                const link = item.querySelector("link").textContent;
-                const date = new Date(item.querySelector("pubDate").textContent).toLocaleString('ru-RU', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
-
-                const post = document.createElement('div');
-                post.className = 'tg-post';
-                post.innerHTML = `
-                    <div class="tg-post-text">${content.substring(0, 400)}${content.length > 400 ? '...' : ''}</div>
-                    <a href="${link}" target="_blank" class="tg-post-date">Посмотреть в Telegram • ${date}</a>
-                `;
-                feedContainer.appendChild(post);
-            });
-        } catch (e) {
-            feedContainer.innerHTML = '<p style="padding:20px; opacity:0.6">Не удалось загрузить ленту Telegram автоматически. <a href="https://t.me/TPereslavl" style="color:var(--tg-color)">Открыть канал вручную</a></p>';
-        }
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
-    // ФУНКЦИЯ ЗАГРУЗКИ ИЗ СМИ
-    async function loadMedia() {
-        const mediaContainer = document.getElementById('media-feed');
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');
+
+    // Продвинутый загрузчик новостей (76.ru)
+    async function fetchNews() {
+        const grid = document.getElementById('news-grid');
         const rssUrl = 'https://76.ru/text/rss.xml';
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+        const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
 
         try {
-            const response = await fetch(proxyUrl);
-            const data = await response.json();
+            const res = await fetch(proxy);
+            const data = await res.json();
             const parser = new DOMParser();
             const xml = parser.parseFromString(data.contents, "text/xml");
             const items = xml.querySelectorAll("item");
 
-            mediaContainer.innerHTML = '';
+            grid.innerHTML = '';
             items.forEach((item, index) => {
-                if (index > 4) return;
+                if (index > 8) return;
                 const title = item.querySelector("title").textContent;
                 const link = item.querySelector("link").textContent;
+                const isP = title.toLowerCase().includes('переславль');
 
                 const card = document.createElement('a');
                 card.href = link;
                 card.target = '_blank';
                 card.className = 'news-card';
-                card.innerHTML = `<b>•</b> ${title}`;
-                mediaContainer.appendChild(card);
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <span style="font-size: 0.7rem; font-weight: 800; color: ${isP ? 'var(--accent)' : 'var(--brand)'}">
+                            ${isP ? '🔥 ГЛАВНОЕ: ПЕРЕСЛАВЛЬ' : 'ЯРОСЛАВЛЬ'}
+                        </span>
+                        <i data-lucide="external-link" size="14"></i>
+                    </div>
+                    <h3 style="margin-top: 10px; font-size: 1.1rem;">${title}</h3>
+                `;
+                grid.appendChild(card);
             });
+            lucide.createIcons();
         } catch (e) {
-            mediaContainer.innerHTML = '';
+            grid.innerHTML = '<p>Сервер новостей временно недоступен</p>';
         }
     }
 
-    loadTelegram();
-    loadMedia();
+    fetchNews();
 </script>
 
 </body>
