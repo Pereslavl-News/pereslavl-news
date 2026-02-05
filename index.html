@@ -9,22 +9,27 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        :root {
-            --brand: #008080; /* Transformative Teal */
-            --accent: #ff6b6b; /* Coral */
-            --bg: #f4f7f6;
-            --card: rgba(255, 255, 255, 0.9);
-            --text: #1a202c;
-            --glass: rgba(255, 255, 255, 0.7);
-        }
+       :root {
+    /* Палитра "Свежий Переславль" */
+    --primary: #008080; 
+    --bg: #fbfcfd;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text: #1d1d1f;
+    --shadow: 0 8px 30px rgba(0,0,0,0.04);
+}
 
-        .dark-theme {
-            --bg: #0f172a;
-            --card: rgba(30, 41, 59, 0.9);
-            --text: #f1f5f9;
-            --glass: rgba(15, 23, 42, 0.8);
-        }
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px); /* Эффект матового стекла */
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
+}
 
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
