@@ -3,223 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Типичный Переславль | Городской Портал</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Типичный Переславль | Официальный сайт</title>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
     
     <style>
-       :root {
-    /* Палитра "Свежий Переславль" */
-    --primary: #008080; 
-    --bg: #fbfcfd;
-    --card-bg: rgba(255, 255, 255, 0.8);
-    --text: #1d1d1f;
-    --shadow: 0 8px 30px rgba(0,0,0,0.04);
-}
-
-.card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px); /* Эффект матового стекла */
-    border-radius: 20px;
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
-}
-
-.card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
+        :root {
+            --primary: #0088cc; --bg: #f0f2f5; --card: #ffffff; --text: #1c1e21;
+        }
+        .dark-theme {
+            --bg: #18191a; --card: #242526; --text: #e4e6eb;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; }
         
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: var(--bg); 
-            color: var(--text);
-            transition: 0.4s;
-            background-image: radial-gradient(circle at top right, var(--brand), transparent 400px);
-            min-height: 100vh;
+        header { 
+            background: var(--card); padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
         }
 
-        /* ШАПКА */
-        header {
-            position: sticky; top: 0; z-index: 1000;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 15px 0;
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        /* Стиль для ленты Telegram */
+        .tg-channel-wrap {
+            background: var(--card); border-radius: 20px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;
+        }
+        .channel-header {
+            padding: 15px; background: var(--primary); color: white;
+            display: flex; align-items: center; gap: 10px; font-weight: 700;
         }
 
-        .container { max-width: 850px; margin: 0 auto; padding: 0 20px; }
-        .nav { display: flex; justify-content: space-between; align-items: center; }
-
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .logo i { color: var(--brand); }
-
-        /* ГЛАВНЫЙ БЛОК TELEGRAM */
-        .tg-section {
-            background: var(--card);
-            border-radius: 30px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.2);
+        .btn-tg {
+            display: block; background: var(--primary); color: white;
+            text-align: center; padding: 15px; border-radius: 15px;
+            text-decoration: none; font-weight: 800; margin-top: 20px;
         }
 
-        .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: var(--brand); }
-
-        /* КАРТОЧКИ НОВОСТЕЙ */
-        .news-grid { display: grid; gap: 15px; }
-        .news-card {
-            background: var(--card);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid transparent;
-            transition: 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-        .news-card:hover {
-            border-color: var(--brand);
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-
-        /* КНОПКИ */
-        .btn-round {
-            background: var(--brand);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center; gap: 8px;
-            text-decoration: none;
-        }
-
-        .theme-toggle {
-            background: var(--glass);
-            border: 1px solid var(--brand);
-            padding: 10px;
-            border-radius: 50%;
-            color: var(--brand);
-            cursor: pointer;
-        }
-
-        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.9rem; }
+        .section-title { margin-bottom: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="container">
-        <div class="nav">
-            <a href="#" class="logo">
-                <i data-lucide="map-pin"></i> Типичный <span>Переславль</span>
-            </a>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <button class="theme-toggle" onclick="toggleTheme()"><i data-lucide="moon"></i></button>
-                <a href="https://t.me/TPereslavl" target="_blank" class="btn-round">
-                    <i data-lucide="send"></i> Канал
-                </a>
-            </div>
-        </div>
-    </div>
+    <div style="font-size: 1.4rem; font-weight: 800;">Типичный <span style="color:var(--primary)">Переславль</span></div>
+    <button onclick="document.body.classList.toggle('dark-theme')" style="background:none; border:none; cursor:pointer; color:var(--text)">
+        <i data-lucide="moon"></i>
+    </button>
 </header>
 
 <div class="container">
     
-    <div class="tg-section">
-        <div class="section-header">
-            <i data-lucide="message-circle"></i>
-            <h2>Последнее в Telegram</h2>
-        </div>
+    <div class="section-title"><i data-lucide="message-square"></i> Последние новости из Telegram</div>
+    
+    <div class="tg-channel-wrap">
+        <div class="channel-header">@TPereslavl</div>
         <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                data-telegram-post="TPereslavl/200" 
-                data-width="100%" 
-                data-userpic="true" 
-                data-color="008080"></script>
+                data-telegram-discussion="TPereslavl" 
+                data-comments-limit="5" 
+                data-color="0088cc" 
+                data-dark="0"></script>
         
-        <div style="margin-top: 20px; text-align: center;">
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 10px;">Нажмите кнопку ниже, чтобы увидеть все обсуждения</p>
-            <a href="https://t.me/TPereslavl" target="_blank" class="btn-round" style="background: var(--accent);">
-                Открыть ленту полностью
-            </a>
+        <div style="padding: 10px;">
+             <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                     data-telegram-post="TPereslavl/100" 
+                     data-width="100%"></script>
         </div>
     </div>
 
-    <div class="section-header">
-        <i data-lucide="newspaper"></i>
-        <h2>Сводка новостей региона</h2>
-    </div>
-
-    <div id="news-grid" class="news-grid">
-        <p style="padding: 20px; text-align: center;">Загрузка свежей прессы...</p>
-    </div>
+    <a href="https://t.me/TPereslavl" target="_blank" class="btn-tg">
+        ПОДПИСАТЬСЯ В TELEGRAM
+    </a>
 
 </div>
 
-<footer>
-    <p>© 2026 Проект Станислава | Переславль-Залесский</p>
-</footer>
-
 <script>
-    // Инициализация иконок
     lucide.createIcons();
-
-    function toggleTheme() {
-        document.body.classList.toggle('dark-theme');
-        const isDark = document.body.classList.contains('dark-theme');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');
-
-    // Продвинутый загрузчик новостей (76.ru)
-    async function fetchNews() {
-        const grid = document.getElementById('news-grid');
-        const rssUrl = 'https://76.ru/text/rss.xml';
-        const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-
-        try {
-            const res = await fetch(proxy);
-            const data = await res.json();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data.contents, "text/xml");
-            const items = xml.querySelectorAll("item");
-
-            grid.innerHTML = '';
-            items.forEach((item, index) => {
-                if (index > 8) return;
-                const title = item.querySelector("title").textContent;
-                const link = item.querySelector("link").textContent;
-                const isP = title.toLowerCase().includes('переславль');
-
-                const card = document.createElement('a');
-                card.href = link;
-                card.target = '_blank';
-                card.className = 'news-card';
-                card.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <span style="font-size: 0.7rem; font-weight: 800; color: ${isP ? 'var(--accent)' : 'var(--brand)'}">
-                            ${isP ? '🔥 ГЛАВНОЕ: ПЕРЕСЛАВЛЬ' : 'ЯРОСЛАВЛЬ'}
-                        </span>
-                        <i data-lucide="external-link" size="14"></i>
-                    </div>
-                    <h3 style="margin-top: 10px; font-size: 1.1rem;">${title}</h3>
-                `;
-                grid.appendChild(card);
-            });
-            lucide.createIcons();
-        } catch (e) {
-            grid.innerHTML = '<p>Сервер новостей временно недоступен</p>';
-        }
-    }
-
-    fetchNews();
 </script>
 
 </body>
