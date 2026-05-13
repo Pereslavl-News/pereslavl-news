@@ -6,27 +6,54 @@
     <title>Типичный Переславль</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;800&display=swap" rel="stylesheet">
     <style>
-        :root { --tg: #0088cc; --bg: #0f0f0f; --card: #1a1a1a; --text: #ffffff; }
+        :root { --tg: #0088cc; --bg: #0f0f0f; --card: #1a1a1a; --muted: #a7a7a7; --text: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 50px; }
-        
-        header { 
+
+        header {
             background: var(--card); padding: 20px; text-align: center;
             border-bottom: 2px solid var(--tg); position: sticky; top: 0; z-index: 100;
         }
         .container { max-width: 550px; margin: 0 auto; padding: 15px; }
-        
+
         .feed-title { margin: 20px 0 15px; font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .feed-title span { background: var(--tg); font-size: 0.7rem; padding: 2px 8px; border-radius: 5px; }
 
-        .post-container { margin-bottom: 20px; min-height: 200px; background: var(--card); border-radius: 15px; overflow: hidden; }
-        
+        .post-container {
+            position: relative; margin-bottom: 20px; min-height: 200px;
+            background: var(--card); border-radius: 15px; overflow: hidden;
+        }
+        .post-container iframe { position: relative; z-index: 2; }
+        .post-loader, .post-fallback { inset: 0; min-height: 200px; padding: 22px; }
+        .post-loader {
+            position: absolute; z-index: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 12px; color: var(--muted);
+            text-align: center;
+        }
+        .spinner {
+            width: 34px; height: 34px; border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top-color: var(--tg); border-radius: 50%; animation: spin 0.9s linear infinite;
+        }
+        .post-fallback {
+            display: none; flex-direction: column; justify-content: center; gap: 14px;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.16), rgba(26, 26, 26, 0.98));
+        }
+        .post-fallback.is-visible { display: flex; }
+        .post-fallback strong { font-size: 1.05rem; }
+        .post-fallback p { color: var(--muted); line-height: 1.45; }
+        .post-link {
+            display: inline-flex; width: fit-content; color: white; background: var(--tg);
+            text-decoration: none; font-weight: 800; padding: 10px 14px; border-radius: 10px;
+        }
+
         .btn-join {
             display: block; background: var(--tg); color: white; text-align: center;
             padding: 18px; border-radius: 15px; text-decoration: none; font-weight: 800;
             margin-top: 30px; transition: 0.3s;
         }
         .btn-join:hover { transform: scale(1.02); opacity: 0.9; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -37,27 +64,64 @@
 
 <div class="container">
     <div class="feed-title">НОВОСТИ ТЕЛЕГРАМ <span>LIVE</span></div>
-    
+
     <div id="tg-posts">
-        <div class="post-container">
+        <div class="post-container" data-post-url="https://t.me/TPereslavl/225">
+            <div class="post-loader"><div class="spinner"></div><p>Загружаем пост Telegram…</p></div>
             <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/225" data-width="100%" data-dark="1"></script>
         </div>
-        <div class="post-container">
+        <div class="post-container" data-post-url="https://t.me/TPereslavl/224">
+            <div class="post-loader"><div class="spinner"></div><p>Загружаем пост Telegram…</p></div>
             <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/224" data-width="100%" data-dark="1"></script>
         </div>
-        <div class="post-container">
+        <div class="post-container" data-post-url="https://t.me/TPereslavl/223">
+            <div class="post-loader"><div class="spinner"></div><p>Загружаем пост Telegram…</p></div>
             <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/223" data-width="100%" data-dark="1"></script>
         </div>
-        <div class="post-container">
+        <div class="post-container" data-post-url="https://t.me/TPereslavl/222">
+            <div class="post-loader"><div class="spinner"></div><p>Загружаем пост Telegram…</p></div>
             <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/222" data-width="100%" data-dark="1"></script>
         </div>
-        <div class="post-container">
+        <div class="post-container" data-post-url="https://t.me/TPereslavl/221">
+            <div class="post-loader"><div class="spinner"></div><p>Загружаем пост Telegram…</p></div>
             <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="TPereslavl/221" data-width="100%" data-dark="1"></script>
         </div>
     </div>
 
-    <a href="https://t.me/TPereslavl" target="_blank" class="btn-join">ПОДПИСАТЬСЯ НА КАНАЛ</a>
+    <a href="https://t.me/TPereslavl" target="_blank" rel="noopener" class="btn-join">ПОДПИСАТЬСЯ НА КАНАЛ</a>
 </div>
+
+<script>
+    const TELEGRAM_WIDGET_TIMEOUT = 7000;
+
+    function showTelegramFallback(container) {
+        if (container.querySelector('iframe')) return;
+
+        const postUrl = container.dataset.postUrl;
+        container.innerHTML = `
+            <div class="post-fallback is-visible">
+                <strong>Telegram долго отвечает</strong>
+                <p>Пост не загрузился на сайте, но его можно сразу открыть в Telegram.</p>
+                <a class="post-link" href="${postUrl}" target="_blank" rel="noopener">Открыть пост</a>
+            </div>
+        `;
+    }
+
+    document.querySelectorAll('.post-container').forEach((container) => {
+        const observer = new MutationObserver(() => {
+            if (container.querySelector('iframe')) {
+                container.querySelector('.post-loader')?.remove();
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(container, { childList: true, subtree: true });
+        setTimeout(() => {
+            observer.disconnect();
+            showTelegramFallback(container);
+        }, TELEGRAM_WIDGET_TIMEOUT);
+    });
+</script>
 
 </body>
 </html>
